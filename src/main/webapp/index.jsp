@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
 
 <head>
@@ -316,12 +316,12 @@
       <div class="row gy-4">
         <div class="col-lg-4" data-aos="fade-up" data-aos-delay="300">
           <div class="card-item">
-            <form method="post" role="form" action=LoginServlet>
+            <form method="post" role="form">
               <div>
                 <input type="text" name="username" class="form-control" id="username" placeholder="username" required>
               </div>
               <div>
-                <input type='password' class="form-control" name="password" id="password" placeholder="password" required>
+                <input type='password' class="form-control" name="email" id="password" placeholder="password" required>
               </div>
               <div>
                 <select id="role" name="role" class="form-control" required>
@@ -332,7 +332,7 @@
                 </select>
               </div>
               <div>
-                <button type="submit">Login</button>
+                <button type="login">Login</button>
               </div>
             </form>
             <p>New user? <a href="register.jsp">Register here</a>.</p>

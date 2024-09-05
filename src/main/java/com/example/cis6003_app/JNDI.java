@@ -11,14 +11,15 @@ public class JNDI {
     public void connectToDB() {
         try {
             InitialContext ctx = new InitialContext();
-            DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/MySQLDB");
+            DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/test");
 
             Connection conn = ds.getConnection();
-            PreparedStatement ps = conn.prepareStatement("SELECT * FROM test");
+            PreparedStatement ps = conn.prepareStatement("SELECT * FROM login");
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
                 // Process the result set
+                System.out.println(rs.getString(1));
             }
 
             rs.close();

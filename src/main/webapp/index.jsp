@@ -324,15 +324,7 @@
                 <input type='password' class="form-control" name="email" id="password" placeholder="password" required>
               </div>
               <div>
-                <select id="role" name="role" class="form-control" required>
-                  <option value="" disabled selected>Please select role</option>
-                  <option value="admin">Admin</option>
-                  <option value="staff">Restaurant Staff</option>
-                  <option value="customer">Customer</option>
-                </select>
-              </div>
-              <div>
-                <button type="login">Login</button>
+                <button type="submit">Login</button>
               </div>
             </form>
             <p>New user? <a href="register.jsp">Register here</a>.</p>

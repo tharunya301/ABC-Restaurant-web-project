@@ -92,9 +92,6 @@
                 <li class="nav-item">
                     <a class="nav-link active" href="reports.html">Reports</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="settings.html">Settings</a>
-                </li>
             </ul>
         </nav>
         <main class="col-md-10 content">

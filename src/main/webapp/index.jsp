@@ -9,7 +9,7 @@
   <meta name="keywords" content="">
 
   <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/logo.png" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
@@ -304,7 +304,7 @@
   </section><!-- /Testimonials Section -->
 
   <!-- Login Section -->
-  <section id="login" class="login section">
+  <section id="login_1" class="login section">
 
     <!-- Section Title -->
     <div class="container section-title" data-aos="fade-up">
@@ -316,15 +316,15 @@
       <div class="row gy-4">
         <div class="col-lg-4" data-aos="fade-up" data-aos-delay="300">
           <div class="card-item">
-            <form method="post" role="form">
+            <form method="post" action="LoginServlet">
               <div>
                 <input type="text" name="username" class="form-control" id="username" placeholder="username" required>
               </div>
               <div>
-                <input type='password' class="form-control" name="email" id="password" placeholder="password" required>
+                <input type='password' class="form-control" name="password" id="password" placeholder="password" required>
               </div>
               <div>
-                <button type="submit">Login</button>
+                <button id="submit" type="submit" value="Login_1">Login</button>
               </div>
             </form>
             <p>New user? <a href="register.jsp">Register here</a>.</p>

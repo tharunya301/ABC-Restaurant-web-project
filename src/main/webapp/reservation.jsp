@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -20,12 +21,6 @@
       height: 100vh;
       padding: 20px;
       border-right: 1px solid #ddd;
-      .content { padding: 20px; }
-      .nav-item .active {
-        background-color: #b68d2c;
-        color: black;
-        font-weight: bold;
-      }
     }
 
     .sidebar h4 {
@@ -44,6 +39,12 @@
       background-color: #d9cda4;
     }
 
+    .sidebar .nav-item .active {
+      background-color: #b68d2c;
+      color: black;
+      font-weight: bold;
+    }
+
     .content {
       padding: 20px;
       background: rgba(255, 255, 255, 0.8);
@@ -55,32 +56,80 @@
       margin-bottom: 20px;
     }
 
-    .nav-item .active {
-      background-color: #b68d2c;
-      color: black;
-      font-weight: bold;
-    }
     .reservation-table th, .reservation-table td {
       vertical-align: middle;
     }
+
     .filter-section {
       margin-bottom: 20px;
+      margin-top: 50px;
     }
+
     .status-badge {
       font-size: 0.9rem;
       padding: 0.4em 0.6em;
     }
+
     .status-confirmed {
       background-color: #28a745;
       color: white;
     }
+
     .status-pending {
       background-color: #ffc107;
       color: black;
     }
+
     .status-cancelled {
       background-color: #dc3545;
       color: white;
+    }
+
+    .add-reservation-section {
+      margin-top: 20px;
+      padding: 20px;
+      background-color: #f7f7f7;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .add-reservation-section h3 {
+      margin-bottom: 15px;
+      color: #333;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: #555;
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+
+    .btn-submit {
+      background-color: #28a745;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .btn-submit:hover {
+      background-color: #218838;
     }
   </style>
 </head>
@@ -111,11 +160,54 @@
         <li class="nav-item">
           <a class="nav-link" href="reports.html">Reports</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="settings.html">Settings</a>
+        </li>
       </ul>
     </nav>
     <main class="col-md-10 content">
       <h2>Reservations</h2>
       <p>Manage all restaurant reservations.</p>
+
+      <!-- Add Reservation Section -->
+      <div class="add-reservation-section">
+        <h3>Add New Reservation</h3>
+        <form id="add-reservation-form">
+          <div class="form-group">
+            <label for="customerName">Customer Name:</label>
+            <input type="text" id="customerName" name="customerName" required>
+          </div>
+
+          <div class="form-group">
+            <label for="reservationDate">Date:</label>
+            <input type="date" id="reservationDate" name="reservationDate" required>
+          </div>
+
+          <div class="form-group">
+            <label for="reservationTime">Time:</label>
+            <input type="time" id="reservationTime" name="reservationTime" required>
+          </div>
+
+          <div class="form-group">
+            <label for="reservationType">Type:</label>
+            <select id="reservationType" name="reservationType" required>
+              <option value="Dine-in">Dine-in</option>
+              <option value="Delivery">Delivery</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="status">Status:</label>
+            <select id="status" name="status" required>
+              <option value="Confirmed">Confirmed</option>
+              <option value="Pending">Pending</option>
+              <option value="Cancelled">Cancelled</option>
+            </select>
+          </div>
+
+          <button type="submit" class="btn-submit">Add Reservation</button>
+        </form>
+      </div>
 
       <!-- Filter Section -->
       <div class="filter-section">
@@ -184,7 +276,6 @@
               <button class="btn btn-sm btn-danger">Cancel</button>
             </td>
           </tr>
-          <!-- Additional rows as needed -->
           </tbody>
         </table>
       </div>

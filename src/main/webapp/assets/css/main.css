@@ -1414,7 +1414,7 @@ select.form-control {
   padding-right: 30px;
 }
 
-button[type="login"] {
+button[type="submit"] {
   width: 100%;
   padding: 10px;
   background-color: #d4af37;
@@ -1426,11 +1426,11 @@ button[type="login"] {
   transition: background-color 0.3s ease;
 }
 
-button[type="login"] {
+button[type="submit"] {
   height: 42px;
 }
 
-button[type="login"]:hover {
+button[type="submit"]:hover {
   background-color: #b68d2c;
 }
 

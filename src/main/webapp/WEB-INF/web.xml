@@ -13,11 +13,11 @@
     </resource-ref>
 
     <servlet>
-        <servlet-name>HelloServlet</servlet-name>
-        <servlet-class>com.example.cis6003_app.HelloServlet</servlet-class>
+        <servlet-name>LoginServlet</servlet-name>
+        <servlet-class>com.example.cis6003_app.servlets.LoginServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>HelloServlet</servlet-name>
+        <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/login</url-pattern>
     </servlet-mapping>
 

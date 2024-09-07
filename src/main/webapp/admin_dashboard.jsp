@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="com.example.cis6003_app.servlets.Reservation" %>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -78,68 +79,131 @@
       <h4>Admin Dashboard</h4>
       <ul class="nav flex-column">
         <li class="nav-item">
-          <a class="nav-link active" href="admin_dashboard.html">Overview</a>
+          <a class="nav-link active" href="/admin?action=overview">Overview</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="user_managemet.html">User Management</a>
+          <a class="nav-link" href="/admin?action=userManagement">User Management</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="reservation.html">Reservations</a>
+          <a class="nav-link" href="/admin?action=reservations">Reservations</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="queries_section.html">Queries</a>
+          <a class="nav-link" href="/admin?action=queries">Queries</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="admin_offers_promotions.html">Offers & Promotions</a>
+          <a class="nav-link" href="/admin?action=offersPromotions">Offers & Promotions</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="facilities_&_services.html">Facilities & Services</a>
+          <a class="nav-link" href="/admin?action=facilitiesServices">Facilities & Services</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="reports.html">Reports</a>
+          <a class="nav-link" href="/admin?action=reports">Reports</a>
         </li>
       </ul>
     </nav>
     <main class="col-md-10 content">
+
       <!-- Overview -->
       <div id="overview">
         <h2>Overview</h2>
+        <%@ page import="java.sql.*" %>
+        <%@ page import="javax.sql.*" %>
 
-        <!-- Overview Cards -->
-        <div class="row">
-          <div class="col-md-3">
-            <div class="card text-white bg-primary">
-              <div class="card-body">
-                <h5 class="card-title">Total Reservations</h5>
-                <p class="card-text">1,234</p>
+        <%
+          // Establish connection to MySQL
+          Connection conn = null;
+          PreparedStatement ps = null;
+          ResultSet rs = null;
+          String url = "jdbc:mysql://localhost:3306/test";
+          String user = "tharunya";
+          String password = "1234";
+
+          try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            conn = DriverManager.getConnection(url, user, password);
+
+            // Query for total reservations
+            String queryTotalReservations = "SELECT COUNT(*) FROM reservations";
+            ps = conn.prepareStatement(queryTotalReservations);
+            rs = ps.executeQuery();
+            rs.next();
+            int totalReservations = rs.getInt(1);
+            rs.close();
+            ps.close();
+
+            // Query for total revenue
+            String queryTotalRevenue = "SELECT SUM(revenue) FROM reservations";
+            ps = conn.prepareStatement(queryTotalRevenue);
+            rs = ps.executeQuery();
+            rs.next();
+            double totalRevenue = rs.getDouble(1);
+            rs.close();
+            ps.close();
+
+            // Query for pending queries
+            String queryPendingQueries = "SELECT COUNT(*) FROM queries WHERE status='Pending'";
+            ps = conn.prepareStatement(queryPendingQueries);
+            rs = ps.executeQuery();
+            rs.next();
+            int pendingQueries = rs.getInt(1);
+            rs.close();
+            ps.close();
+
+            // Query for cancelled orders
+            String queryCancelledOrders = "SELECT COUNT(*) FROM reservations WHERE status='Cancelled'";
+            ps = conn.prepareStatement(queryCancelledOrders);
+            rs = ps.executeQuery();
+            rs.next();
+            int cancelledOrders = rs.getInt(1);
+            rs.close();
+            ps.close();
+        %>
+          <div class="overview">
+            <!-- Overview Cards -->
+            <div class="row">
+              <div class="col-md-3">
+                <div class="card text-white bg-primary">
+                  <div class="card-body">
+                    <h5 class="card-title">Total Reservations</h5>
+                    <p class="card-text"><%= totalReservations %></p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="card text-white bg-success">
+                  <div class="card-body">
+                    <h5 class="card-title">Total Revenue</h5>
+                    <p class="card-text">Rs. <%= totalRevenue %></p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="card text-white bg-warning">
+                  <div class="card-body">
+                    <h5 class="card-title">Pending Queries</h5>
+                    <p class="card-text"><%= pendingQueries %></p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="card text-white bg-danger">
+                  <div class="card-body">
+                    <h5 class="card-title">Cancelled Orders</h5>
+                    <p class="card-text"><%= cancelledOrders %></p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-          <div class="col-md-3">
-            <div class="card text-white bg-success">
-              <div class="card-body">
-                <h5 class="card-title">Total Revenue</h5>
-                <p class="card-text">Rs.45,678</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="card text-white bg-warning">
-              <div class="card-body">
-                <h5 class="card-title">Pending Queries</h5>
-                <p class="card-text">56</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="card text-white bg-danger">
-              <div class="card-body">
-                <h5 class="card-title">Cancelled Orders</h5>
-                <p class="card-text">12</p>
-              </div>
-            </div>
-          </div>
-        </div>
+        <%
+          } catch (Exception e) {
+            e.printStackTrace();
+          } finally {
+            if (rs != null) rs.close();
+            if (ps != null) ps.close();
+            if (conn != null) conn.close();
+          }
+        %>
 
         <!-- Chart Section -->
         <div class="row">
@@ -151,7 +215,47 @@
               <div class="card-body">
                 <div class="chart-container">
                   <!-- Placeholder for chart (e.g., Line chart) -->
-                  <canvas id="reservationsChart"></canvas>
+                  <canvas id="reservationsOverTimeChart"></canvas>
+
+                  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+                  <script>
+                    var ctx = document.getElementById('reservationsOverTimeChart').getContext('2d');
+
+                    var reservationDates = [
+                      <c:forEach var="entry" items="${reservationsOverTime}">
+                      '${entry.key}',
+                      </c:forEach>
+                    ];
+
+                    var reservationCounts = [
+                      <c:forEach var="entry" items="${reservationsOverTime}">
+                      ${entry.value},
+                      </c:forEach>
+                    ];
+
+                    var reservationsOverTimeChart = new Chart(ctx, {
+                      type: 'line',
+                      data: {
+                        labels: reservationDates, // X-axis labels
+                        datasets: [{
+                          label: 'Reservations Over Time',
+                          data: reservationCounts, // Y-axis values
+                          backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                          borderColor: 'rgba(75, 192, 192, 1)',
+                          borderWidth: 1
+                        }]
+                      },
+                      options: {
+                        scales: {
+                          y: {
+                            beginAtZero: true
+                          }
+                        }
+                      }
+                    });
+                  </script>
+
                 </div>
               </div>
             </div>
@@ -163,8 +267,38 @@
               </div>
               <div class="card-body">
                 <div class="chart-container">
-                  <!-- Placeholder for chart (e.g., Pie chart) -->
-                  <canvas id="revenueChart"></canvas>
+                  <canvas id="revenueBreakdownChart"></canvas>
+
+                  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+                  <script>
+                    var ctx = document.getElementById('revenueBreakdownChart').getContext('2d');
+
+                    var revenueLabels = [
+                      <c:forEach var="entry" items="${revenueBreakdown}">
+                      '${entry.key}',
+                      </c:forEach>
+                    ];
+
+                    var revenueData = [
+                      <c:forEach var="entry" items="${revenueBreakdown}">
+                      ${entry.value},
+                      </c:forEach>
+                    ];
+
+                    var revenueBreakdownChart = new Chart(ctx, {
+                      type: 'pie',
+                      data: {
+                        labels: revenueLabels, // Statuses like "Confirmed", "Pending", "Cancelled"
+                        datasets: [{
+                          data: revenueData, // Revenue values
+                          backgroundColor: ['#28a745', '#ffc107', '#dc3545'],
+                          hoverOffset: 4
+                        }]
+                      }
+                    });
+                  </script>
+
                 </div>
               </div>
             </div>
@@ -179,6 +313,10 @@
                 Recent Reservations
               </div>
               <div class="card-body">
+
+                <%@ page import="java.util.*" %>
+                <%@ page import="com.example.cis6003_app.servlets.Reservation" %>
+
                 <table class="table table-striped">
                   <thead>
                   <tr>
@@ -190,27 +328,23 @@
                   </tr>
                   </thead>
                   <tbody>
-                  <tr>
-                    <td>1</td>
-                    <td>John Doe</td>
-                    <td>2024-09-01</td>
-                    <td>7:00 PM</td>
-                    <td>Confirmed</td>
-                  </tr>
-                  <tr>
-                    <td>2</td>
-                    <td>Jane Smith</td>
-                    <td>2024-09-01</td>
-                    <td>8:00 PM</td>
-                    <td>Pending</td>
-                  </tr>
-                  <tr>
-                    <td>3</td>
-                    <td>Bob Johnson</td>
-                    <td>2024-09-02</td>
-                    <td>6:00 PM</td>
-                    <td>Cancelled</td>
-                  </tr>
+                  <%
+                    @SuppressWarnings("unchecked")
+                  List<Reservation> reservations = (List<Reservation>) request.getAttribute("reservations");
+                  %>
+
+                  <tbody>
+                    <% if(reservations != null) {
+                      for (Reservation reservation : reservations) {
+                        %> <tr>
+                          <td><%= reservation.getId() %></td>
+                          <td><%= reservation.getCustomerName() %></td>
+                          <td><%= reservation.getDate() %></td>
+                          <td><%= reservation.getTime() %></td>
+                          <td><%= reservation.getStatus() %></td>
+                        </tr> <%
+                      }
+                    } %>
                   </tbody>
                 </table>
               </div>
@@ -225,5 +359,7 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 </body>
 </html>

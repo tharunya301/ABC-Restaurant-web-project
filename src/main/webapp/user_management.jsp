@@ -101,6 +101,10 @@
         <h4>Manage Users</h4>
         <button class="btn btn-primary" data-toggle="modal" data-target="#addUserModal">Add New User</button>
       </div>
+
+      <%@ page import="java.util.*" %>
+      <%@ page import="com.example.cis6003_app.servlets.User" %>
+
       <table class="table table-bordered">
         <thead>
         <tr>
@@ -112,18 +116,34 @@
         </tr>
         </thead>
         <tbody>
-        <!-- Example Row -->
-        <tr>
-          <td>1</td>
-          <td>John Doe</td>
-          <td>johndoe@example.com</td>
-          <td>Admin</td>
-          <td>
-            <button class="btn btn-sm btn-warning" data-toggle="modal" data-target="#editUserModal">Edit</button>
-            <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteUserModal">Delete</button>
-          </td>
-        </tr>
-        <!-- More rows can be added dynamically -->
+          <%
+            @SuppressWarnings("unchecked")
+            List<User> users = (List<User>) request.getAttribute("users");
+          %>
+
+        <tbody>
+          <% if(users != null) {
+            for (User user : users) {
+              %> <tr>
+                <td><%= user.getId() %></td>
+                <td><%= user.getUserName() %></td>
+                <td><%= user.getEmail() %></td>
+                <td><%= user.getRole() %></td>
+              </tr> <%
+            }
+          } %>
+        </tbody>
+
+            <%--        <tr>--%>
+<%--          <td>1</td>--%>
+<%--          <td>John Doe</td>--%>
+<%--          <td>johndoe@example.com</td>--%>
+<%--          <td>Admin</td>--%>
+<%--          <td>--%>
+<%--            <button class="btn btn-sm btn-warning" data-toggle="modal" data-target="#editUserModal">Edit</button>--%>
+<%--            <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteUserModal">Delete</button>--%>
+<%--          </td>--%>
+<%--        </tr>--%>
         </tbody>
       </table>
     </main>

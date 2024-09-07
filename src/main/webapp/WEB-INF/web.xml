@@ -21,6 +21,33 @@
         <url-pattern>/login</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>DashboardServlet</servlet-name>
+        <servlet-class>com.example.cis6003_app.servlets.DashboardServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DashboardServlet</servlet-name>
+        <url-pattern>/admin</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ReservationStatsServlet</servlet-name>
+        <servlet-class>com.example.cis6003_app.servlets.ReservationStatsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ReservationStatsServlet</servlet-name>
+        <url-pattern>/reservation</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>UserManagementServlet</servlet-name>
+        <servlet-class>com.example.cis6003_app.servlets.UserManagementServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UserManagementServlet</servlet-name>
+        <url-pattern>/user</url-pattern>
+    </servlet-mapping>
+
     <!-- Add other servlet mappings here -->
 
     <welcome-file-list>

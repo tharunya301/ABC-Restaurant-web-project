@@ -109,7 +109,7 @@
           <tr>
             <td>001</td>
             <td>John Doe</td>
-            <td>Reservation Issue</td>
+            <td>com.example.cis6003_app.servlets.Reservation Issue</td>
             <td>2024-09-01</td>
             <td><span class="badge badge-warning">Pending</span></td>
             <td><button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#queryModal">View</button></td>
@@ -139,7 +139,7 @@
             </div>
             <div class="modal-body">
               <div class="query-detail">
-                <h5>Subject: Reservation Issue</h5>
+                <h5>Subject: com.example.cis6003_app.servlets.Reservation Issue</h5>
                 <p><strong>Customer Name:</strong> John Doe</p>
                 <p><strong>Date Submitted:</strong> 2024-09-01</p>
                 <p><strong>Status:</strong> Pending</p>

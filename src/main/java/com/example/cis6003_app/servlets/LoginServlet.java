@@ -32,12 +32,11 @@ public class LoginServlet extends HttpServlet {
 
         String loginResult = jndi.getloginData(username, password);
 
-//        response.setContentType("text/html");
         PrintWriter out = response.getWriter();
 
         if(loginResult != null) {
             if (loginResult.equals("Admin")) {
-                RequestDispatcher dispatcher = request.getRequestDispatcher("/admin_dashboard.jsp");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/admin?action=overview");
                 dispatcher.forward(request, response);
             }
             else if (loginResult.equals("Staff")) {
@@ -52,8 +51,6 @@ public class LoginServlet extends HttpServlet {
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
                 dispatcher.forward(request, response);
             }
-        }else {
-
         }
     }
 }

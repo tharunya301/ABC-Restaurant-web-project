@@ -88,10 +88,10 @@
         <main class="col-md-10 content">
             <h2>Manage Reservations</h2>
 
-            <!-- Reservation Cards -->
+            <!-- com.example.cis6003_app.servlets.Reservation Cards -->
             <div class="card reservation-card">
                 <div class="card-body">
-                    <h5 class="card-title">Reservation #12345</h5>
+                    <h5 class="card-title">com.example.cis6003_app.servlets.Reservation #12345</h5>
                     <p class="card-text">
                         <strong>Customer Name:</strong> John Doe <br>
                         <strong>Date:</strong> 2024-09-15 <br>
@@ -109,7 +109,7 @@
 
             <div class="card reservation-card">
                 <div class="card-body">
-                    <h5 class="card-title">Reservation #12346</h5>
+                    <h5 class="card-title">com.example.cis6003_app.servlets.Reservation #12346</h5>
                     <p class="card-text">
                         <strong>Customer Name:</strong> Jane Smith <br>
                         <strong>Date:</strong> 2024-09-16 <br>
@@ -127,7 +127,7 @@
 
             <div class="card reservation-card">
                 <div class="card-body">
-                    <h5 class="card-title">Reservation #12347</h5>
+                    <h5 class="card-title">com.example.cis6003_app.servlets.Reservation #12347</h5>
                     <p class="card-text">
                         <strong>Customer Name:</strong> Jane Smith <br>
                         <strong>Date:</strong> 2024-09-16 <br>
@@ -146,7 +146,7 @@
             <!-- Add more reservation cards as needed -->
 
             <!-- Pagination for Reservations -->
-            <nav aria-label="Reservation pagination">
+            <nav aria-label="com.example.cis6003_app.servlets.Reservation pagination">
                 <ul class="pagination justify-content-center">
                     <li class="page-item"><a class="page-link" href="#">Previous</a></li>
                     <li class="page-item"><a class="page-link" href="#">1</a></li>

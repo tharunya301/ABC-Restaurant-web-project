@@ -97,7 +97,7 @@
           <tr>
             <th>Payment ID</th>
             <th>Customer Name</th>
-            <th>Reservation ID</th>
+            <th>com.example.cis6003_app.servlets.Reservation ID</th>
             <th>Amount</th>
             <th>Status</th>
             <th>Date</th>
@@ -126,8 +126,8 @@
         <h4>Process New Payment</h4>
         <form>
           <div class="form-group">
-            <label for="reservationID">Reservation ID</label>
-            <input type="text" class="form-control" id="reservationID" placeholder="Enter Reservation ID">
+            <label for="reservationID">com.example.cis6003_app.servlets.Reservation ID</label>
+            <input type="text" class="form-control" id="reservationID" placeholder="Enter com.example.cis6003_app.servlets.Reservation ID">
           </div>
           <div class="form-group">
             <label for="customerName">Customer Name</label>

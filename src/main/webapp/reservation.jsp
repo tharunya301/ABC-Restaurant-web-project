@@ -171,7 +171,7 @@
 
       <!-- Add Reservation Section -->
       <div class="add-reservation-section">
-        <h3>Add New Reservation</h3>
+        <h3>Add New</h3>
         <form id="add-reservation-form">
           <div class="form-group">
             <label for="customerName">Customer Name:</label>

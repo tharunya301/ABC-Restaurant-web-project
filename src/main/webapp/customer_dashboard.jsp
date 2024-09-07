@@ -135,7 +135,7 @@
           <div class="sent-message">Your booking request was sent. We will call back or send an Email to confirm your reservation. Thank you!</div>
           <button type="submit">Book a Table</button>
         </div>
-      </form><!-- End Reservation Form -->
+      </form><!-- End com.example.cis6003_app.servlets.Reservation Form -->
     </div>
   </section><!-- /Book A Table Section -->
 

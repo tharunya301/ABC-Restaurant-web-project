@@ -30,14 +30,14 @@
         <url-pattern>/admin</url-pattern>
     </servlet-mapping>
 
-    <servlet>
-        <servlet-name>ReservationStatsServlet</servlet-name>
-        <servlet-class>com.example.cis6003_app.servlets.ReservationStatsServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>ReservationStatsServlet</servlet-name>
-        <url-pattern>/reservation</url-pattern>
-    </servlet-mapping>
+<!--    <servlet>-->
+<!--        <servlet-name>ReservationStatsServlet</servlet-name>-->
+<!--        <servlet-class>com.example.cis6003_app.servlets.ReservationStatsServlet</servlet-class>-->
+<!--    </servlet>-->
+<!--    <servlet-mapping>-->
+<!--        <servlet-name>ReservationStatsServlet</servlet-name>-->
+<!--        <url-pattern>/reservation</url-pattern>-->
+<!--    </servlet-mapping>-->
 
     <servlet>
         <servlet-name>UserManagementServlet</servlet-name>
@@ -46,6 +46,33 @@
     <servlet-mapping>
         <servlet-name>UserManagementServlet</servlet-name>
         <url-pattern>/user</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ReservationServlet</servlet-name>
+        <servlet-class>com.example.cis6003_app.servlets.ReservationServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ReservationServlet</servlet-name>
+        <url-pattern>/reservation</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AdminQueryServlet</servlet-name>
+        <servlet-class>com.example.cis6003_app.servlets.AdminQueryServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminQueryServlet</servlet-name>
+        <url-pattern>/adminQuery</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AdminOffersServlet</servlet-name>
+        <servlet-class>com.example.cis6003_app.servlets.AdminOffersServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminOffersServlet</servlet-name>
+        <url-pattern>/adminOffer</url-pattern>
     </servlet-mapping>
 
     <!-- Add other servlet mappings here -->

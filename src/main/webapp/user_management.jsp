@@ -73,27 +73,28 @@
       <h4>Admin Dashboard</h4>
       <ul class="nav flex-column">
         <li class="nav-item">
-          <a class="nav-link" href="admin_dashboard.html">Overview</a>
+          <a class="nav-link" href="/admin?action=overview">Overview</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="user_managemet.html">User Management</a>
+          <a class="nav-link active" href="/admin?action=userManagement">User Management</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="reservation.html">Reservations</a>
+          <a class="nav-link" href="/admin?action=reservations">Reservations</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="queries_section.html">Queries</a>
+          <a class="nav-link" href="/admin?action=queries">Queries</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="admin_offers_promotions.html">Offers & Promotions</a>
+          <a class="nav-link" href="/admin?action=offersPromotions">Offers & Promotions</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="facilities_&_services.html">Facilities & Services</a>
+          <a class="nav-link" href="/admin?action=facilitiesServices">Facilities & Services</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="reports.html">Reports</a>
+          <a class="nav-link" href="/admin?action=reports">Reports</a>
         </li>
       </ul>
+    </nav>
     </nav>
     <main class="col-md-10 content">
       <h2>User Management</h2>
@@ -105,7 +106,7 @@
       <%@ page import="java.util.*" %>
       <%@ page import="com.example.cis6003_app.servlets.User" %>
 
-      <table class="table table-bordered">
+      <table class="table table-striped">
         <thead>
         <tr>
           <th>#</th>
@@ -116,20 +117,18 @@
         </tr>
         </thead>
         <tbody>
-          <%
-            @SuppressWarnings("unchecked")
-            List<User> users = (List<User>) request.getAttribute("users");
-          %>
-
-        <tbody>
-          <% if(users != null) {
-            for (User user : users) {
-              %> <tr>
-                <td><%= user.getId() %></td>
-                <td><%= user.getUserName() %></td>
-                <td><%= user.getEmail() %></td>
-                <td><%= user.getRole() %></td>
-              </tr> <%
+        <%
+          @SuppressWarnings("unchecked")
+          List<User> users = (List<User>) request.getAttribute("users");
+        %>
+        <% if(users != null) {
+          for (User user : users) {
+        %> <tr>
+          <td><%= user.getId() %></td>
+          <td><%= user.getUserName() %></td>
+          <td><%= user.getEmail() %></td>
+          <td><%= user.getEmail() %></td>
+        </tr> <%
             }
           } %>
         </tbody>
@@ -144,7 +143,7 @@
 <%--            <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteUserModal">Delete</button>--%>
 <%--          </td>--%>
 <%--        </tr>--%>
-        </tbody>
+<%--        </tbody>--%>
       </table>
     </main>
   </div>

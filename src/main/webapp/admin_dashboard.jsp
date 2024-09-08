@@ -332,8 +332,6 @@
                     @SuppressWarnings("unchecked")
                   List<Reservation> reservations = (List<Reservation>) request.getAttribute("reservations");
                   %>
-
-                  <tbody>
                     <% if(reservations != null) {
                       for (Reservation reservation : reservations) {
                         %> <tr>

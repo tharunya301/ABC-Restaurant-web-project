@@ -19,8 +19,7 @@ public class User {
     public String getRole() {return role;}
     public void setRole(String role) {this.role = role;}
 
-    public void add(User user) {
-    }
+    public void add(User user) { }
 
     public void setID(int id) {this.id = id;}
 

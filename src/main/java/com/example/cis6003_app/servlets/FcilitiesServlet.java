@@ -1,6 +1,5 @@
 package com.example.cis6003_app.servlets;
 
-import com.example.cis6003_app.JNDI;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -9,24 +8,22 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet(name = "ReservationServlet", value = "/reservation-servlet")
-public class ReservationServlet extends HttpServlet {
+@WebServlet(name = "FcilitiesServlet", value = "/facilities-servlet")
+public class FcilitiesServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Reservation> reservations = new ArrayList<>();
-        ReservationDAO reservationDAO = new ReservationDAO();
+        List<Facility> facilities = new ArrayList<>();
+        FacilityDAO facilityDAO = new FacilityDAO();
 
-        reservations = reservationDAO.getRecentReservations();
+        facilities = facilityDAO.getAllFacilities();
 
-        if(!reservations.isEmpty()) {
-            request.setAttribute("reservations", reservations);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/reservation.jsp");
+        if(!facilities.isEmpty()) {
+            request.setAttribute("facilities", facilities);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("facilities_&_services.jsp");
             dispatcher.forward(request, response);
         }
     }
@@ -35,25 +32,27 @@ public class ReservationServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
 
-        if(action != null || action.equals("reservations")) {
-            showReservations(request, response);
+        if(action != null || action.equals("facilitiesServices")) {
+            showFacilitiesServices(request, response);
         } else if (action.equals("overview")) {
             showOverview(request, response);
         } else if (action.equals("userManagement")) {
             showUserManagement(request, response);
-        } else if (action.equals("queries")) {
+        } else if (action.equals("reservations")) {
+            showReservations(request, response);
+        }else if (action.equals("queries")) {
             showQueries(request, response);
         } else if (action.equals("offersPromotions")) {
             showOffersPromotions(request, response);
-        } else if (action.equals("facilitiesServices")) {
-            showFacilitiesServices(request, response);
         } else if (action.equals("reports")) {
             showReports(request, response);
         }
     }
 
     private void showReservations(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Reservation> reservations = new ArrayList<>();
+        ReservationDAO reservationDAO = new ReservationDAO();
+        List<Reservation> reservations = reservationDAO.getRecentReservations();
+
         request.setAttribute("reservations", reservations);
         RequestDispatcher dispatcher = request.getRequestDispatcher("reservation.jsp");
         dispatcher.forward(request, response);
@@ -96,9 +95,7 @@ public class ReservationServlet extends HttpServlet {
     }
 
     private void showFacilitiesServices(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        FacilityDAO facilityDAO = new FacilityDAO();
-        List<Facility> facilities = facilityDAO.getAllFacilities();
-
+        List<Facility> facilities = new ArrayList<>();
         request.setAttribute("facilities", facilities);
         RequestDispatcher dispatcher = request.getRequestDispatcher("facilities_&_services.jsp");
         dispatcher.forward(request,response);

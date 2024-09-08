@@ -1,6 +1,5 @@
 package com.example.cis6003_app.servlets;
 
-import com.example.cis6003_app.JNDI;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -8,25 +7,24 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+import javax.management.Query;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet(name = "ReservationServlet", value = "/reservation-servlet")
-public class ReservationServlet extends HttpServlet {
+@WebServlet(name = "AdminOffersServlet", value = "/admin-offers-servlet")
+public class AdminOffersServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Reservation> reservations = new ArrayList<>();
-        ReservationDAO reservationDAO = new ReservationDAO();
+        List<Offer> offers = new ArrayList<>();
+        OfferDAO offerDAO = new OfferDAO();
 
-        reservations = reservationDAO.getRecentReservations();
+        offers = offerDAO.getAllOffers();
 
-        if(!reservations.isEmpty()) {
-            request.setAttribute("reservations", reservations);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/reservation.jsp");
+        if(!offers.isEmpty()) {
+            request.setAttribute("offers", offers);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("admin-offers.jsp");
             dispatcher.forward(request, response);
         }
     }
@@ -35,16 +33,16 @@ public class ReservationServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
 
-        if(action != null || action.equals("reservations")) {
-            showReservations(request, response);
+        if(action != null || action.equals("offersPromotions")) {
+            showOffersPromotions(request, response);
         } else if (action.equals("overview")) {
             showOverview(request, response);
         } else if (action.equals("userManagement")) {
             showUserManagement(request, response);
-        } else if (action.equals("queries")) {
+        } else if (action.equals("reservations")) {
+            showReservations(request, response);
+        }else if (action.equals("queries")) {
             showQueries(request, response);
-        } else if (action.equals("offersPromotions")) {
-            showOffersPromotions(request, response);
         } else if (action.equals("facilitiesServices")) {
             showFacilitiesServices(request, response);
         } else if (action.equals("reports")) {
@@ -53,7 +51,9 @@ public class ReservationServlet extends HttpServlet {
     }
 
     private void showReservations(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Reservation> reservations = new ArrayList<>();
+        ReservationDAO reservationDAO = new ReservationDAO();
+        List<Reservation> reservations = reservationDAO.getRecentReservations();
+
         request.setAttribute("reservations", reservations);
         RequestDispatcher dispatcher = request.getRequestDispatcher("reservation.jsp");
         dispatcher.forward(request, response);
@@ -87,9 +87,7 @@ public class ReservationServlet extends HttpServlet {
     }
 
     private void showOffersPromotions(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        OfferDAO offerDAO = new OfferDAO();
-        List<Offer> offers = offerDAO.getAllOffers();
-
+        List<Offer> offers = new ArrayList<>();
         request.setAttribute("offers", offers);
         RequestDispatcher dispatcher = request.getRequestDispatcher("admin_offers_promotions.jsp");
         dispatcher.forward(request, response);

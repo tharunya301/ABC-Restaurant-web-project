@@ -19,7 +19,6 @@ import java.util.List;
 @WebServlet(name = "DashboardServlet", value = "/dashboard-servlet")
 public class DashboardServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    private Object UserDAO;
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
@@ -33,12 +32,6 @@ public class DashboardServlet extends HttpServlet {
             RequestDispatcher dispatcher = request.getRequestDispatcher("admin_dashboard.jsp");
             dispatcher.forward(request, response);
         }
-
-
-        String action = request.getParameter("action");
-
-
-
     }
 
     @Override

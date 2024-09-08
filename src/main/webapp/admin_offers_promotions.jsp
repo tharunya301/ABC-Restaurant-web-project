@@ -70,25 +70,25 @@
             <h4>Admin Dashboard</h4>
             <ul class="nav flex-column">
                 <li class="nav-item">
-                    <a class="nav-link" href="admin_dashboard.html">Overview</a>
+                    <a class="nav-link" href="/admin?action=overview">Overview</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="user_managemet.html">User Management</a>
+                    <a class="nav-link" href="/admin?action=userManagement">User Management</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="reservation.html">Reservations</a>
+                    <a class="nav-link" href="/admin?action=reservations">Reservations</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="queries_section.html">Queries</a>
+                    <a class="nav-link" href="/admin?action=queries">Queries</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="admin_offers_promotions.html">Offers & Promotions</a>
+                    <a class="nav-link active" href="/admin?action=offersPromotions">Offers & Promotions</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="facilities_&_services.html">Facilities & Services</a>
+                    <a class="nav-link" href="/admin?action=facilitiesServices">Facilities & Services</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="reports.html">Reports</a>
+                    <a class="nav-link" href="/admin?action=reports">Reports</a>
                 </li>
             </ul>
         </nav>

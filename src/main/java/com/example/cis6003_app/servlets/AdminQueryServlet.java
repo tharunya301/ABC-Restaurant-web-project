@@ -53,7 +53,6 @@ public class AdminQueryServlet extends HttpServlet {
     private void showReservations(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ReservationDAO reservationDAO = new ReservationDAO();
         List<Reservation> reservations = reservationDAO.getRecentReservations();
-
         request.setAttribute("reservations", reservations);
         RequestDispatcher dispatcher = request.getRequestDispatcher("reservation.jsp");
         dispatcher.forward(request, response);
@@ -62,7 +61,6 @@ public class AdminQueryServlet extends HttpServlet {
     private void showOverview(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         UserDAO userDAO = new UserDAO();
         List<User> users = userDAO.getAllUsers();
-
         request.setAttribute("users", users);
         RequestDispatcher dispatcher = request.getRequestDispatcher("admin_dashboard.jsp");
         dispatcher.forward(request, response);
@@ -71,7 +69,6 @@ public class AdminQueryServlet extends HttpServlet {
     private void showUserManagement(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         UserDAO userDAO = new UserDAO();
         List<User> users = userDAO.getAllUsers();
-
         request.setAttribute("users", users);
         RequestDispatcher dispatcher = request.getRequestDispatcher("user_management.jsp");
         dispatcher.forward(request, response);
@@ -87,7 +84,6 @@ public class AdminQueryServlet extends HttpServlet {
     private void showOffersPromotions(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         OfferDAO offerDAO = new OfferDAO();
         List<Offer> offers = offerDAO.getAllOffers();
-
         request.setAttribute("offers", offers);
         RequestDispatcher dispatcher = request.getRequestDispatcher("admin_offers_promotions.jsp");
         dispatcher.forward(request, response);
@@ -96,7 +92,6 @@ public class AdminQueryServlet extends HttpServlet {
     private void showFacilitiesServices(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         FacilityDAO facilityDAO = new FacilityDAO();
         List<Facility> facilities = facilityDAO.getAllFacilities();
-
         request.setAttribute("facilities", facilities);
         RequestDispatcher dispatcher = request.getRequestDispatcher("facilities_&_services.jsp");
         dispatcher.forward(request,response);
@@ -105,7 +100,6 @@ public class AdminQueryServlet extends HttpServlet {
     private void showReports(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ReportDAO reportDAO = new ReportDAO();
         List<Report> reports = reportDAO.getAllReports();
-
         request.setAttribute("reports", reports);
         RequestDispatcher dispatcher = request.getRequestDispatcher("reports.jsp");
         dispatcher.forward(request, response);

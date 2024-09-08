@@ -11,29 +11,29 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet(name = "FcilitiesServlet", value = "/facilities-servlet")
-public class FcilitiesServlet extends HttpServlet {
+@WebServlet(name = "ReportsServlet", value = "/reports-servlet")
+public class ReportsServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Facility> facilities = new ArrayList<>();
-        FacilityDAO facilityDAO = new FacilityDAO();
+        List<Report> reports = new ArrayList<>();
+        ReportDAO reportDAO = new ReportDAO();
 
-        facilities = facilityDAO.getAllFacilities();
+        reports = reportDAO.getAllReports();
 
-        if(!facilities.isEmpty()) {
-            request.setAttribute("facilities", facilities);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("facilities_&_services.jsp");
+        if(!reports.isEmpty()) {
+            request.setAttribute("reports", reports);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("reports.jsp");
             dispatcher.forward(request, response);
-        }
+            }
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
 
-        if(action != null || action.equals("facilitiesServices")) {
-            showFacilitiesServices(request, response);
+        if(action != null || action.equals("reports")) {
+            showReports(request, response);
         } else if (action.equals("overview")) {
             showOverview(request, response);
         } else if (action.equals("userManagement")) {
@@ -42,10 +42,10 @@ public class FcilitiesServlet extends HttpServlet {
             showReservations(request, response);
         }else if (action.equals("queries")) {
             showQueries(request, response);
+        } else if (action.equals("facilitiesServices")) {
+            showFacilitiesServices(request, response);
         } else if (action.equals("offersPromotions")) {
             showOffersPromotions(request, response);
-        } else if (action.equals("reports")) {
-            showReports(request, response);
         }
     }
 
@@ -90,15 +90,15 @@ public class FcilitiesServlet extends HttpServlet {
     }
 
     private void showFacilitiesServices(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Facility> facilities = new ArrayList<>();
+        FacilityDAO facilityDAO = new FacilityDAO();
+        List<Facility> facilities = facilityDAO.getAllFacilities();
         request.setAttribute("facilities", facilities);
         RequestDispatcher dispatcher = request.getRequestDispatcher("facilities_&_services.jsp");
         dispatcher.forward(request,response);
     }
 
     private void showReports(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        ReportDAO reportDAO = new ReportDAO();
-        List<Report> reports = reportDAO.getAllReports();
+        List<Report> reports = new ArrayList<>();
         request.setAttribute("reports", reports);
         RequestDispatcher dispatcher = request.getRequestDispatcher("reports.jsp");
         dispatcher.forward(request, response);

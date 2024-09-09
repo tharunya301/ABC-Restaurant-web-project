@@ -11,19 +11,19 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet(name = "StaffDashboardServlet", value = "/staff-dashboard-servlet")
-public class StaffDashboardServlet extends HttpServlet {
+@WebServlet(name = "PaymentsServlet", value = "/payments-servlet")
+public class PaymentsServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        List<Reservation> reservations = new ArrayList<>();
-        ReservationDAO reservationDAO = new ReservationDAO();
+        List<Payments> payments = new ArrayList<>();
+        PaymentsDAO paymentsDAO = new PaymentsDAO();
 
-        reservations = reservationDAO.getRecentReservations();
+        payments = paymentsDAO.getAllPayments();
 
-        if(!reservations.isEmpty()) {
-            request.setAttribute("reservations", reservations);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("staff_dashboard.jsp");
+        if(!payments.isEmpty()) {
+            request.setAttribute("queries", payments);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("payments.jsp");
             dispatcher.forward(request, response);
         }
     }
@@ -32,12 +32,12 @@ public class StaffDashboardServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
 
-        if(action == null || action.equals("staffReservations")) {
+        if(action == null || action.equals("payments")) {
+            showPayments(req, resp);
+        } else if (action.equals("staffReservations")) {
             showStaffReservations(req, resp);
         } else if (action.equals("staffQueries")) {
             showStaffQueries(req, resp);
-        } else if (action.equals("payments")) {
-            showPayments(req, resp);
         } else if (action.equals("dailyTasks")) {
             showDailyTasks(req, resp);
         } else if (action.equals("serviceManagement")) {
@@ -60,9 +60,8 @@ public class StaffDashboardServlet extends HttpServlet {
         dispatcher.forward(req, resp);
     }
     private void showPayments(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        PaymentsDAO paymentsDAO = new PaymentsDAO();
-        List<Payments> payments = paymentsDAO.getAllPayments();
-        req.setAttribute("payments", payments);
+        List<Payments> payments = new ArrayList<>();
+        req.setAttribute("queries", payments);
         RequestDispatcher dispatcher = req.getRequestDispatcher("payments.jsp");
         dispatcher.forward(req, resp);
     }
@@ -74,7 +73,8 @@ public class StaffDashboardServlet extends HttpServlet {
         dispatcher.forward(req, resp);
     }
     private void showStaffReservations(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<Reservation> reservations = new ArrayList<>();
+        ReservationDAO reservationDAO = new ReservationDAO();
+        List<Reservation> reservations = reservationDAO.getRecentReservations();
         req.setAttribute("reservations", reservations);
         RequestDispatcher dispatcher = req.getRequestDispatcher("staff_dashboard.jsp");
         dispatcher.forward(req, resp);

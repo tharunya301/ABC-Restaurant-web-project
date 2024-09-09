@@ -11,19 +11,19 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet(name = "StaffDashboardServlet", value = "/staff-dashboard-servlet")
-public class StaffDashboardServlet extends HttpServlet {
+@WebServlet(name = "DailyTasksServlet", value = "/daily-tasks-servlet")
+public class DailyTasksServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        List<Reservation> reservations = new ArrayList<>();
-        ReservationDAO reservationDAO = new ReservationDAO();
+        List<DailyTasks> dailyTasks = new ArrayList<>();
+        DailyTasksDAO dailyTasksDAO = new DailyTasksDAO();
 
-        reservations = reservationDAO.getRecentReservations();
+        dailyTasks = dailyTasksDAO.getAllTasks();
 
-        if(!reservations.isEmpty()) {
-            request.setAttribute("reservations", reservations);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("staff_dashboard.jsp");
+        if(!dailyTasks.isEmpty()) {
+            request.setAttribute("dailyTasks", dailyTasks);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("daily-tasks.jsp");
             dispatcher.forward(request, response);
         }
     }
@@ -32,14 +32,14 @@ public class StaffDashboardServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
 
-        if(action == null || action.equals("staffReservations")) {
+        if(action == null || action.equals("dailyTasks")) {
+            showDailyTasks(req, resp);
+        } else if (action.equals("staffReservations")) {
             showStaffReservations(req, resp);
         } else if (action.equals("staffQueries")) {
             showStaffQueries(req, resp);
         } else if (action.equals("payments")) {
             showPayments(req, resp);
-        } else if (action.equals("dailyTasks")) {
-            showDailyTasks(req, resp);
         } else if (action.equals("serviceManagement")) {
             showServiceManagement(req, resp);
         }
@@ -53,8 +53,7 @@ public class StaffDashboardServlet extends HttpServlet {
         dispatcher.forward(req, resp);
     }
     private void showDailyTasks(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        DailyTasksDAO dailyTasksDAO = new DailyTasksDAO();
-        List<DailyTasks> dailyTasks = dailyTasksDAO.getAllTasks();
+        List<DailyTasks> dailyTasks = new ArrayList<>();
         req.setAttribute("dailyTasks", dailyTasks);
         RequestDispatcher dispatcher = req.getRequestDispatcher("daily_tasks.jsp");
         dispatcher.forward(req, resp);
@@ -74,7 +73,8 @@ public class StaffDashboardServlet extends HttpServlet {
         dispatcher.forward(req, resp);
     }
     private void showStaffReservations(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<Reservation> reservations = new ArrayList<>();
+        ReservationDAO reservationDAO = new ReservationDAO();
+        List<Reservation> reservations = reservationDAO.getRecentReservations();
         req.setAttribute("reservations", reservations);
         RequestDispatcher dispatcher = req.getRequestDispatcher("staff_dashboard.jsp");
         dispatcher.forward(req, resp);

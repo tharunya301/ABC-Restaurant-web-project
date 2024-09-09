@@ -30,6 +30,15 @@
         <url-pattern>/admin</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>StaffDashboardServlet</servlet-name>
+        <servlet-class>com.example.cis6003_app.servlets.StaffDashboardServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>StaffDashboardServlet</servlet-name>
+        <url-pattern>/staff</url-pattern>
+    </servlet-mapping>
+
 <!--    <servlet>-->
 <!--        <servlet-name>ReservationStatsServlet</servlet-name>-->
 <!--        <servlet-class>com.example.cis6003_app.servlets.ReservationStatsServlet</servlet-class>-->

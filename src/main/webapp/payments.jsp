@@ -73,19 +73,19 @@
       <h4>Staff Dashboard</h4>
       <ul class="nav flex-column">
         <li class="nav-item">
-          <a class="nav-link" href="staff_dashboard.html">Reservations</a>
+          <a class="nav-link" href="/staff?action=staffReservations">Reservations</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="queries.html">Queries</a>
+          <a class="nav-link" href="/staff?action=staffQueries">Queries</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="payments.html">Payments</a>
+          <a class="nav-link active" href="/staff?action=payments">Payments</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="daily_taks.html">Daily Tasks</a>
+          <a class="nav-link" href="/staff?action=dailyTasks">Daily Tasks</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="service_management.html">Service Management</a>
+          <a class="nav-link" href="/staff?action=serviceManagement">Service Management</a>
         </li>
       </ul>
     </nav>

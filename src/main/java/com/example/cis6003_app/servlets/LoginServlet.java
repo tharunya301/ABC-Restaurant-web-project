@@ -40,7 +40,7 @@ public class LoginServlet extends HttpServlet {
                 dispatcher.forward(request, response);
             }
             else if (loginResult.equals("Staff")) {
-                RequestDispatcher dispatcher = request.getRequestDispatcher("/staff_dashboard.jsp");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/staff?action=staffReservations");
                 dispatcher.forward(request, response);
             }
             else if (loginResult.equals("Customer")) {

@@ -63,7 +63,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>ReservationServlet</servlet-name>
-        <url-pattern>/reservation</url-pattern>
+        <url-pattern>/reservation-1</url-pattern>
     </servlet-mapping>
 
     <servlet>

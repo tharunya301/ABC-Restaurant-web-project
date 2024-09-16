@@ -23,5 +23,4 @@ public class User {
 
     public void setID(int id) {this.id = id;}
 
-    public void setUsername(String userName) {this.userName = userName;}
 }

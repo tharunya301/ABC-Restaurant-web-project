@@ -1,11 +1,24 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Dashboard - Reservations</title>
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>ABC Restaurant</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <!-- Favicons -->
+  <link href="assets/img/logo.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -169,7 +182,7 @@
       <!-- Add Reservation Section -->
       <div class="add-reservation-section">
         <h3>Add New</h3>
-        <form id="add-reservation-form">
+        <form id="add-reservation-form" action="reservation-1?isAddNew=true" method="post">
           <div class="form-group">
             <label for="customerName">Customer Name:</label>
             <input type="text" id="customerName" name="customerName" required>
@@ -206,24 +219,26 @@
         </form>
       </div>
 
-      <!-- Filter Section -->
-      <div class="filter-section">
-        <form class="form-inline">
-          <label class="mr-2">Filter by:</label>
-          <input type="date" class="form-control mr-2" placeholder="Date">
-          <input type="time" class="form-control mr-2" placeholder="Time">
-          <select class="form-control mr-2">
-            <option value="">Status</option>
-            <option value="confirmed">Confirmed</option>
-            <option value="pending">Pending</option>
-            <option value="cancelled">Cancelled</option>
-          </select>
-          <button type="submit" class="btn btn-primary">Apply Filters</button>
-        </form>
-      </div>
+<%--      <!-- Filter Section -->--%>
+<%--      <div class="filter-section">--%>
+<%--        <form class="form-inline">--%>
+<%--          <label class="mr-2">Filter by:</label>--%>
+<%--          <input type="date" class="form-control mr-2" placeholder="Date">--%>
+<%--          <input type="time" class="form-control mr-2" placeholder="Time">--%>
+<%--          <select class="form-control mr-2">--%>
+<%--            <option value="">Status</option>--%>
+<%--            <option value="confirmed">Confirmed</option>--%>
+<%--            <option value="pending">Pending</option>--%>
+<%--            <option value="cancelled">Cancelled</option>--%>
+<%--          </select>--%>
+<%--          <button type="submit" class="btn btn-primary">Apply Filters</button>--%>
+<%--        </form>--%>
+<%--      </div>--%>
 
       <!-- Reservations Table -->
       <div class="table-responsive">
+        <%@ page import="java.util.*" %>
+        <%@ page import="com.example.cis6003_app.servlets.Reservation" %>
         <table class="table table-bordered reservation-table">
           <thead class="thead-light">
           <tr>
@@ -237,45 +252,107 @@
           </tr>
           </thead>
           <tbody>
-          <tr>
-            <td>1</td>
-            <td>John Doe</td>
-            <td>2024-09-15</td>
-            <td>19:00</td>
-            <td>Dine-in</td>
-            <td><span class="badge status-badge status-confirmed">Confirmed</span></td>
+          <%
+            @SuppressWarnings("unchecked")
+            List<Reservation> reservations = (List<Reservation>) request.getAttribute("reservations");
+          %>
+          <% if(reservations != null) {
+            for (Reservation reservation : reservations) {
+          %> <tr>
+            <td><%= reservation.getId() %></td>
+            <td><%= reservation.getCustomerName() %></td>
+            <td><%= reservation.getDate() %></td>
+            <td><%= reservation.getTime() %></td>
+            <td><%= reservation.getType() %></td>
+            <td><%= reservation.getStatus() %></td>
             <td>
-              <button class="btn btn-sm btn-info">Edit</button>
-              <button class="btn btn-sm btn-danger">Cancel</button>
+              <button class="btn btn-sm btn-info" data-toggle="modal" data-target="#editReservationsModal">Edit</button>
+              <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteReservationModal">Cancel</button>
             </td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Jane Smith</td>
-            <td>2024-09-16</td>
-            <td>12:30</td>
-            <td>Delivery</td>
-            <td><span class="badge status-badge status-pending">Pending</span></td>
-            <td>
-              <button class="btn btn-sm btn-info">Edit</button>
-              <button class="btn btn-sm btn-danger">Cancel</button>
-            </td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>Mark Wilson</td>
-            <td>2024-09-17</td>
-            <td>18:00</td>
-            <td>Dine-in</td>
-            <td><span class="badge status-badge status-cancelled">Cancelled</span></td>
-            <td>
-              <button class="btn btn-sm btn-info">Edit</button>
-              <button class="btn btn-sm btn-danger">Cancel</button>
-            </td>
-          </tr>
+          </tr> <%
+              }
+            } %>
           </tbody>
         </table>
       </div>
+
+      <!-- Edit Reservations Modal -->
+      <div class="modal fade" id="editReservationsModal" tabindex="-1" role="dialog" aria-labelledby="editReservationsModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="editReservationsModalLabel">Edit Reservation</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form id="edit-reservation-form" action="reservation-1?isAddNew=true" method="post">
+                <div class="form-group">
+                  <label for="reservationNo">reservation ID:</label>
+                  <input type="text" id="reservationNo" name="reservationNo">
+                </div>
+
+                <div class="form-group">
+                  <label for="customerName">Customer Name:</label>
+                  <input type="text" id="editCustomerName" name="customerName">
+                </div>
+
+                <div class="form-group">
+                  <label for="reservationDate">Date:</label>
+                  <input type="date" id="editReservationDate" name="reservationDate">
+                </div>
+
+                <div class="form-group">
+                  <label for="reservationTime">Time:</label>
+                  <input type="time" id="editReservationTime" name="reservationTime">
+                </div>
+
+                <div class="form-group">
+                  <label for="reservationType">Type:</label>
+                  <select id="editReservationType" name="reservationType">
+                    <option value="Dine-in">Dine-in</option>
+                    <option value="Delivery">Delivery</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="status">Status:</label>
+                  <select id="editStatus" name="status">
+                    <option value="Confirmed">Confirmed</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Cancelled">Cancelled</option>
+                  </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Delete Reservation Modal -->
+      <div class="modal fade" id="deleteReservationModal" tabindex="-1" role="dialog" aria-labelledby="deleteReservationModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="deleteReservationModalLabel">Delete User</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              Are you sure you want to delete this reservations?
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+              <button type="button" class="btn btn-danger">Yes, Delete</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </main>
   </div>
 </div>

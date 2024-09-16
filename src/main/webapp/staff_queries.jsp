@@ -109,7 +109,7 @@
           <tr>
             <td>001</td>
             <td>John Doe</td>
-            <td>com.example.cis6003_app.servlets.Reservation Issue</td>
+            <td>Reservation Issue</td>
             <td>2024-09-01</td>
             <td><span class="badge badge-warning">Pending</span></td>
             <td><button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#queryModal">View</button></td>

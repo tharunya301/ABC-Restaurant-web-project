@@ -32,6 +32,10 @@ public class DashboardServlet extends HttpServlet {
             RequestDispatcher dispatcher = request.getRequestDispatcher("admin_dashboard.jsp");
             dispatcher.forward(request, response);
         }
+        else {
+            RequestDispatcher dispatcher = request.getRequestDispatcher("admin_dashboard.jsp");
+            dispatcher.forward(request, response);
+        }
     }
 
     @Override

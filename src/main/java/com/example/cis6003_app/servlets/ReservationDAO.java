@@ -18,7 +18,7 @@ public class ReservationDAO {
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/test", "tharunya", "1234");
 
             // Query recent reservations
-            String query = "SELECT id, customer_name, date, time, status FROM reservations";
+            String query = "SELECT id, customer_name, date, time, status, type FROM reservations";
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
 
@@ -26,9 +26,10 @@ public class ReservationDAO {
                 Reservation reservation = new Reservation();
                 reservation.setId(rs.getInt("id"));
                 reservation.setCustomerName(rs.getString("customer_name"));
-                reservation.setDate(rs.getDate("date"));
-                reservation.setTime(rs.getTime("time"));
+                reservation.setDate(rs.getString("date"));
+                reservation.setTime(rs.getString("time"));
                 reservation.setStatus(rs.getString("status"));
+                reservation.setType(rs.getString("type"));
                 reservations.add(reservation);
 
             }

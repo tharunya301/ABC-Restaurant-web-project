@@ -10,25 +10,72 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URLEncoder;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet(name = "ReservationServlet", value = "/reservation-servlet")
+@WebServlet(name = "ReservationServlet", value = "/reservation-1")
 public class ReservationServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Reservation> reservations = new ArrayList<>();
-        ReservationDAO reservationDAO = new ReservationDAO();
+        String isAddNew = request.getParameter("isAddNew");
 
-        reservations = reservationDAO.getRecentReservations();
+        if (isAddNew !=null && isAddNew.equals("true")) {
+            // Get form parameters
+            String customerName = request.getParameter("customerName");
+            String reservationDate = request.getParameter("reservationDate");
+            String reservationTime = request.getParameter("reservationTime");
+            String reservationType = request.getParameter("reservationType");
+            String status = request.getParameter("status");
 
-        if(!reservations.isEmpty()) {
-            request.setAttribute("reservations", reservations);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/reservation.jsp");
-            dispatcher.forward(request, response);
+            Connection conn = null;
+            PreparedStatement ps = null;
+
+            // Handle Add New Reservation
+            try {
+                // Database connection
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/test", "tharunya", "1234");
+
+                // Insert reservation data into the database
+                String sql = "INSERT INTO reservations (customer_name, date, time, type, status) VALUES ( ?, ?, ?, ?, ?)";
+                ps = conn.prepareStatement(sql);
+                ps.setString(1, customerName);
+                ps.setString(2, reservationDate);
+                ps.setString(3, reservationTime);
+                ps.setString(4, reservationType);
+                ps.setString(5, status);
+
+                // Execute the query
+                ps.executeUpdate();
+
+                String message = "Reservation added successfully.";
+                String url = "admin?message=" + URLEncoder.encode(message, "UTF-8");
+                // Redirect to the target servlet with the message
+                response.sendRedirect(url);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                String message = "There was an error processing your reservation."+e.getMessage();
+                String url = "admin?message=" + URLEncoder.encode(message, "UTF-8");
+                // Redirect to the target servlet with the message
+                response.sendRedirect(url);
+            }
+
+        } else {
+            List<Reservation> reservations = new ArrayList<>();
+            ReservationDAO reservationDAO = new ReservationDAO();
+            reservations = reservationDAO.getRecentReservations();
+
+            if(!reservations.isEmpty()) {
+                request.setAttribute("reservations", reservations);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("admin_dashboard.jsp");
+                dispatcher.forward(request, response);
+            }
         }
+
     }
 
     @Override

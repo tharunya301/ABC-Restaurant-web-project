@@ -7,9 +7,10 @@ import java.util.List;
 public class Reservation {
     private int id;
     private String customerName;
-    private Date date;
-    private Time time;
+    private String date;
+    private String time;
     private String status;
+    private String type;
 
     public static List<Reservation> getRecentReservations() {
         return List.of();
@@ -22,14 +23,17 @@ public class Reservation {
     public String getCustomerName() { return customerName; }
     public void setCustomerName(String customerName) { this.customerName = customerName; }
 
-    public Date getDate() { return date; }
-    public void setDate(Date date) { this.date = date; }
+    public String getDate() { return date; }
+    public void setDate(String date) { this.date = date; }
 
-    public Time getTime() { return time; }
-    public void setTime(Time time) { this.time = time; }
+    public String getTime() { return time; }
+    public void setTime(String time) { this.time = time; }
 
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
+
+    public  String getType(){ return type; }
+    public void setType(String type){ this.type = type; }
 
     public void add(Reservation reservation) { }
 }

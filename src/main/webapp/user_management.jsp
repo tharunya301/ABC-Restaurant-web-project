@@ -95,12 +95,11 @@
         </li>
       </ul>
     </nav>
-    </nav>
     <main class="col-md-10 content">
       <h2>User Management</h2>
       <div class="d-flex justify-content-between mb-3">
         <h4>Manage Users</h4>
-        <button class="btn btn-primary" data-toggle="modal" data-target="#addUserModal">Add New User</button>
+        <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addUserModal">Add New User</button>
       </div>
 
       <%@ page import="java.util.*" %>
@@ -124,10 +123,14 @@
         <% if(users != null) {
           for (User user : users) {
         %> <tr>
-          <td><%= user.getId() %></td>
-          <td><%= user.getUserName() %></td>
-          <td><%= user.getEmail() %></td>
-          <td><%= user.getEmail() %></td>
+          <td><%= user.getId()%></td>
+          <td><%= user.getUserName()%></td>
+          <td><%= user.getEmail()%></td>
+          <td><%= user.getRole()%></td>
+          <td>
+            <button class="btn btn-sm btn-warning" data-toggle="modal" data-target="#editUserModal">Edit</button>
+            <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteUserModal">Delete</button>
+          </td>
         </tr> <%
             }
           } %>
@@ -145,109 +148,109 @@
 <%--        </tr>--%>
 <%--        </tbody>--%>
       </table>
+
+      <!-- Add User Modal -->
+      <div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="addUserModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="addUserModalLabel">Add New User</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="form-group">
+                  <label for="userName">Name</label>
+                  <input type="text" class="form-control" id="userName" placeholder="Enter name">
+                </div>
+                <div class="form-group">
+                  <label for="userEmail">Email</label>
+                  <input type="email" class="form-control" id="userEmail" placeholder="Enter email">
+                </div>
+                <div class="form-group">
+                  <label for="userRole">Role</label>
+                  <select class="form-control" id="userRole">
+                    <option>Admin</option>
+                    <option>Staff</option>
+                    <option>Customer</option>
+                  </select>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save User</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Edit User Modal -->
+      <div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="editUserModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="editUserModalLabel">Edit User</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="form-group">
+                  <label for="editUserName">Name</label>
+                  <input type="text" class="form-control" id="editUserName" value="John Doe">
+                </div>
+                <div class="form-group">
+                  <label for="editUserEmail">Email</label>
+                  <input type="email" class="form-control" id="editUserEmail" value="johndoe@example.com">
+                </div>
+                <div class="form-group">
+                  <label for="editUserRole">Role</label>
+                  <select class="form-control" id="editUserRole">
+                    <option>Admin</option>
+                    <option>Staff</option>
+                    <option>Customer</option>
+                  </select>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save Changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Delete User Modal -->
+      <div class="modal fade" id="deleteUserModal" tabindex="-1" role="dialog" aria-labelledby="deleteUserModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="deleteUserModalLabel">Delete User</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              Are you sure you want to delete this user?
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+              <button type="button" class="btn btn-danger">Yes, Delete</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </main>
   </div>
 </div>
 
-<!-- Add User Modal -->
-<div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="addUserModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="addUserModalLabel">Add New User</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="form-group">
-            <label for="userName">Name</label>
-            <input type="text" class="form-control" id="userName" placeholder="Enter name">
-          </div>
-          <div class="form-group">
-            <label for="userEmail">Email</label>
-            <input type="email" class="form-control" id="userEmail" placeholder="Enter email">
-          </div>
-          <div class="form-group">
-            <label for="userRole">Role</label>
-            <select class="form-control" id="userRole">
-              <option>Admin</option>
-              <option>Staff</option>
-              <option>Customer</option>
-            </select>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save User</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Edit User Modal -->
-<div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="editUserModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="editUserModalLabel">Edit User</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="form-group">
-            <label for="editUserName">Name</label>
-            <input type="text" class="form-control" id="editUserName" value="John Doe">
-          </div>
-          <div class="form-group">
-            <label for="editUserEmail">Email</label>
-            <input type="email" class="form-control" id="editUserEmail" value="johndoe@example.com">
-          </div>
-          <div class="form-group">
-            <label for="editUserRole">Role</label>
-            <select class="form-control" id="editUserRole">
-              <option>Admin</option>
-              <option>Staff</option>
-              <option>Customer</option>
-            </select>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save Changes</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Delete User Modal -->
-<div class="modal fade" id="deleteUserModal" tabindex="-1" role="dialog" aria-labelledby="deleteUserModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="deleteUserModalLabel">Delete User</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        Are you sure you want to delete this user?
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-        <button type="button" class="btn btn-danger">Yes, Delete</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+ <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

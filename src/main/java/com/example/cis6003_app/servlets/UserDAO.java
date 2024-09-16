@@ -29,7 +29,7 @@ public class UserDAO {
                 user.setUserName(rs.getString("user_name"));
                 user.setEmail(rs.getString("email"));
                 user.setRole(rs.getString("role"));
-                user.add(user);
+                users.add(user);
 
             }
 
